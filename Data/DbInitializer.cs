@@ -58,12 +58,12 @@ namespace OrderLaptop.Data
             var customers = new Customer[]
             {
 
-                    new Customer{CustomerID=101,Name="Kanyadi Monika",BirthDate=DateTime.Parse("1996-04-28")},
-                    new Customer{CustomerID=102,Name="Szasz Balazs",BirthDate=DateTime.Parse("1997-02-07")},
-                    new Customer{CustomerID=103,Name="Ban Hermina",BirthDate=DateTime.Parse("1992-11-19")},
-                    new Customer{CustomerID=104,Name="Topolyai Gergely",BirthDate=DateTime.Parse("1989-10-07")},
-                    new Customer{CustomerID=105,Name="Kallo Helen",BirthDate=DateTime.Parse("1996-10-05")},
-                    new Customer{CustomerID=106,Name="Kiss Alpar",BirthDate=DateTime.Parse("1997-12-06")},
+                    new Customer{CustomerID=101,Name="Kanyadi Monika",Adress="Brasov str. Petofi Sandor nr.5",BirthDate=DateTime.Parse("1996-04-28"), PhoneNumber="0752154689"},
+                    new Customer{CustomerID=102,Name="Szasz Balazs",Adress="Sighisoara str. Andrei Saguna nr.7",BirthDate=DateTime.Parse("1997-02-07"),PhoneNumber="0745072845"},
+                    new Customer{CustomerID=103,Name="Ban Hermina",Adress="Mureni str. Principala nr.22",BirthDate=DateTime.Parse("1992-11-19"),PhoneNumber="0753232119"},
+                    new Customer{CustomerID=104,Name="Topolyai Gergely",Adress="Surcea nr.225",BirthDate=DateTime.Parse("1989-10-07"),PhoneNumber="0752129689"},
+                    new Customer{CustomerID=105,Name="Kallo Helen",Adress="Cristuru Secuiesc str. Harghitei P3/9",BirthDate=DateTime.Parse("1996-10-05"),PhoneNumber="0748160450"},
+                    new Customer{CustomerID=106,Name="Kiss Alpar",Adress="Orodheiu Secuiesc str. Kossuth Lajos",BirthDate=DateTime.Parse("1997-12-06"),PhoneNumber="0752964689"},
 
  };
             foreach (Customer c in customers)

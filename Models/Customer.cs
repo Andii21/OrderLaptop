@@ -13,6 +13,7 @@ namespace OrderLaptop.Models
         public string Name { get; set; }
         public string Adress { get; set; }
         public DateTime BirthDate { get; set; }
+        public string PhoneNumber { get; set; }
 
         public ICollection<Order> Orders { get; set; }
     }
