@@ -6,16 +6,32 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using OrderLaptop.Data;
+using OrderLaptop.Models.DeviceViewModel;
 
 namespace OrderLaptop.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly LibraryContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(LibraryContext context)
         {
-            _logger = logger;
+            _context = context;
+        }
+
+        public async Task<ActionResult> Statistics()
+        {
+            IQueryable<OrderGroup> data =
+            from order in _context.Orders
+            group order by order.OrderDate into dateGroup
+            select new OrderGroup()
+            {
+                OrderDate = dateGroup.Key,
+                LaptopCount = dateGroup.Count()
+            };
+            return View(await data.AsNoTracking().ToListAsync());
         }
 
         public IActionResult Index()

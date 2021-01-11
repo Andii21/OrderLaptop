@@ -20,10 +20,52 @@ namespace OrderLaptop.Controllers
         }
 
         // GET: Laptops
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder,
+                                                string currentFilter,                                    
+                                                string searchString, int? pageNumber)
         {
-            return View(await _context.Laptops.ToListAsync());
+
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["PriceSortParm"] = sortOrder == "Price" ? "price_desc" : "Price";
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewData["CurrentFilter"] = searchString;
+
+            var laptops = from b in _context.Laptops
+                        select b;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                laptops = laptops.Where(s => s.Name.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    laptops = laptops.OrderByDescending(b => b.Name);
+                    break;
+                case "Price":
+                    laptops = laptops.OrderBy(b => b.Price);
+                    break;
+                case "price_desc":
+                    laptops = laptops.OrderByDescending(b => b.Price);
+                    break;
+                default:
+                    laptops = laptops.OrderBy(b => b.Name);
+                    break;
+            }
+            int pageSize = 2;
+            return View(await PaginatedList<Laptop>.CreateAsync(laptops.AsNoTracking(), pageNumber ??1, pageSize));
         }
+    
 
         // GET: Laptops/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -34,7 +76,11 @@ namespace OrderLaptop.Controllers
             }
 
             var laptop = await _context.Laptops
+                .Include(s => s.Orders)
+                .ThenInclude(e => e.Customer)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.LaptopID == id);
+
             if (laptop == null)
             {
                 return NotFound();
@@ -54,13 +100,22 @@ namespace OrderLaptop.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LaptopID,Name,Description,Price")] Laptop laptop)
+        public async Task<IActionResult> Create([Bind("Name,Description,Price")] Laptop laptop)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(laptop);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(laptop);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            catch (DbUpdateException /* ex*/)
+            {
+
+                ModelState.AddModelError("", "Unable to save changes. " +
+                "Try again, and if the problem persists ");
             }
             return View(laptop);
         }
@@ -84,40 +139,38 @@ namespace OrderLaptop.Controllers
         // POST: Laptops/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost,ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("LaptopID,Name,Description,Price")] Laptop laptop)
-        {
-            if (id != laptop.LaptopID)
+        public async Task<IActionResult> EditPost(int? id)
+        { 
+            if (id == null)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            var studentToUpdate = await _context.Laptops.FirstOrDefaultAsync(s=>s.LaptopID==id);
+              
+            if (await TryUpdateModelAsync<Laptop>(
+                  studentToUpdate,
+                  "",
+                  s=> s.Name, s=>s.Description, s => s.Price))
             {
                 try
                 {
-                    _context.Update(laptop);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateException/*ex*/)
                 {
-                    if (!LaptopExists(laptop.LaptopID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    ModelState.AddModelError("", "Unable to save changes. " +
+                                "Try again, and if the problem persists");
                 }
-                return RedirectToAction(nameof(Index));
             }
-            return View(laptop);
+           
+            return View(studentToUpdate);
         }
 
         // GET: Laptops/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
             {
@@ -125,10 +178,16 @@ namespace OrderLaptop.Controllers
             }
 
             var laptop = await _context.Laptops
+                .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.LaptopID == id);
             if (laptop == null)
             {
                 return NotFound();
+            }
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewData["ErrorMessage"] =
+                "Delete failed. Try again";
             }
 
             return View(laptop);
@@ -140,9 +199,20 @@ namespace OrderLaptop.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var laptop = await _context.Laptops.FindAsync(id);
-            _context.Laptops.Remove(laptop);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            if(laptop == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            try
+            {
+
+                _context.Laptops.Remove(laptop);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (DbUpdateException /*ex*/) {
+                return RedirectToAction(nameof(Delete), new { id = id, saveChangesError = true });
+            }
         }
 
         private bool LaptopExists(int id)
