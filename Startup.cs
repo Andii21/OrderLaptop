@@ -50,6 +50,7 @@ namespace OrderLaptop
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -58,6 +59,7 @@ namespace OrderLaptop
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapHub<ChatHub>("/chathub");
+                endpoints.MapRazorPages();
             });
         }
     }
