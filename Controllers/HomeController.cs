@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using OrderLaptop.Models;
+using OrderLaptop.DeviceModel.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using OrderLaptop.Data;
 using OrderLaptop.Models.DeviceViewModel;
 using OrderLaptop.DeviceModel.Data;
+using OrderLaptop.Models;
 
 namespace OrderLaptop.Controllers
 {
@@ -20,6 +21,10 @@ namespace OrderLaptop.Controllers
         public HomeController(LibraryContext context)
         {
             _context = context;
+        }
+        public IActionResult Chat()
+        {
+            return View();
         }
 
         public async Task<ActionResult> Statistics()
