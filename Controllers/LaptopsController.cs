@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OrderLaptop.Data;
 using OrderLaptop.Models;
+using OrderLaptop.DeviceModel.Data;
+using OrderLaptop.DeviceModel.Models;
 
 namespace OrderLaptop.Controllers
 {

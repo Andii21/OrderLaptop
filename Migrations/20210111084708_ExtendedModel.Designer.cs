@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OrderLaptop.Data;
+using OrderLaptop.DeviceModel.Data;
 
 namespace OrderLaptop.Migrations
 {

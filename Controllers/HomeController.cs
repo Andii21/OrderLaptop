@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using OrderLaptop.Data;
 using OrderLaptop.Models.DeviceViewModel;
+using OrderLaptop.DeviceModel.Data;
 
 namespace OrderLaptop.Controllers
 {

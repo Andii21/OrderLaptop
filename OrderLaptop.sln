@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderLaptop", "OrderLaptop.csproj", "{F83202DB-6817-4A5C-AAAB-C0D0BD9EFEBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderLaptop", "OrderLaptop.csproj", "{F83202DB-6817-4A5C-AAAB-C0D0BD9EFEBA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeviceModel", "..\DeviceModel\DeviceModel.csproj", "{7F575016-28AE-4DED-A50C-069359C84480}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceWebAPI", "..\DeviceWebAPI\DeviceWebAPI.csproj", "{4844C8BC-1AF6-479C-843D-AEA7CB770340}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{F83202DB-6817-4A5C-AAAB-C0D0BD9EFEBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F83202DB-6817-4A5C-AAAB-C0D0BD9EFEBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F83202DB-6817-4A5C-AAAB-C0D0BD9EFEBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F575016-28AE-4DED-A50C-069359C84480}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F575016-28AE-4DED-A50C-069359C84480}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F575016-28AE-4DED-A50C-069359C84480}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F575016-28AE-4DED-A50C-069359C84480}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4844C8BC-1AF6-479C-843D-AEA7CB770340}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4844C8BC-1AF6-479C-843D-AEA7CB770340}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4844C8BC-1AF6-479C-843D-AEA7CB770340}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4844C8BC-1AF6-479C-843D-AEA7CB770340}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

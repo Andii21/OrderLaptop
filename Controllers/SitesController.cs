@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using OrderLaptop.Data;
 using OrderLaptop.Models;
 using OrderLaptop.Models.DeviceViewModel;
+using OrderLaptop.DeviceModel.Models;
+using OrderLaptop.DeviceModel.Data;
 
 
 namespace OrderLaptop.Controllers

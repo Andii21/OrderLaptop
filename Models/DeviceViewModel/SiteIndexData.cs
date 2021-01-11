@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using OrderLaptop.DeviceModel.Models;
 
 namespace OrderLaptop.Models.DeviceViewModel
 {

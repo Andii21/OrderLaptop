@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using OrderLaptop.Models;
+using OrderLaptop.DeviceModel.Models;
+using OrderLaptop.DeviceModel.Data;
 
 namespace OrderLaptop.Data
 {
