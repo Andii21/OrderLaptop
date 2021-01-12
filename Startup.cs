@@ -10,7 +10,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using OrderLaptop.DeviceModel.Data;
+using OrderLaptop.DeviceModel.Models;
 using OrderLaptop.Hubs;
+using Microsoft.AspNetCore.Identity;
 
 namespace OrderLaptop
 {
@@ -26,9 +28,13 @@ namespace OrderLaptop
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+         
             services.AddControllersWithViews();
+            //services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<LibraryContext>();
             services.AddDbContext<LibraryContext>(options =>
                                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            
+                
             services.AddSignalR();
         }
 
