@@ -1,4 +1,9 @@
 ﻿@model OrderLaptop.Models.DeviceViewModel.SiteIndexData
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
 @{
     ViewData["Title"] = "Sites";
 }
@@ -24,29 +29,40 @@
             {
                 selectedRow = "success";
             }
-            <tr class="@selectedRow">
-                <td>
-                    @Html.DisplayFor(modelItem => item.SiteName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.URL)
-                </td>
+        <tr class="@selectedRow">
+            <td>
+                @Html.DisplayFor(modelItem => item.SiteName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.URL)
+            </td>
 
-                <td>
-                    @{
-                        foreach (var laptop in item.LaptopSites)
-                        {
-                            @laptop.laptop.LaptopID @: @laptop.laptop.Name<br />
-                        }
+            <td>
+                @{
+                    foreach (var laptop in item.LaptopSites)
+                    {
+                        @laptop.laptop.LaptopID @: @laptop.laptop.Name<br />
                     }
-                </td>
+                }
+            </td>
+            @if (SignInManager.IsSignedIn(User))
+            {
                 <td>
                     <a asp-action="Index" asp-route-id="@item.SiteID">Select</a> |
                     <a asp-action="Edit" asp-route-id="@item.SiteID">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.SiteID">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.SiteID">Delete</a>
                 </td>
-            </tr>
+            }
+            else
+            {
+                <td>
+                    <a asp-action="Index" asp-route-id="@item.SiteID">Select</a> |
+                    <a asp-action="Details" asp-route-id="@item.SiteID">Details</a> 
+                </td>
+
+            }
+        </tr>
         }
     </tbody>
 </table>
@@ -93,7 +109,7 @@
     </h3>
     <table class="table">
         <tr>
-            <th>Name</th> 
+            <th>Name</th>
             <th>Order Date</th>
         </tr>
         @foreach (var item in Model.Orders)

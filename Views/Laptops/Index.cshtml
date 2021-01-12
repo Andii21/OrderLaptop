@@ -1,4 +1,9 @@
 ﻿@model PaginatedList<OrderLaptop.DeviceModel.Models.Laptop>
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
 
 @{
     ViewData["Title"] = "Laptops";
@@ -36,22 +41,32 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            @if (SignInManager.IsSignedIn(User)  )
+            {
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.LaptopID">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.LaptopID">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.LaptopID">Delete</a>
                 </td>
-            </tr>
+            }
+            else
+            {
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.LaptopID">Details</a> 
+                </td>
+
+            }
+        </tr>
 
         }
     </tbody>

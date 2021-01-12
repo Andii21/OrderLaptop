@@ -42,22 +42,6 @@ namespace OrderLaptop.Controllers
             }
             return View(customer);
         }
-        public IActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var client = new CustomerService.CustomerServiceClient(channel);
-            Customer customer = client.Get(new CustomerId() { Id = (int)id });
-            if (customer == null)
-            {
-                return NotFound();
-            }
-            return View(customer);
-        }
-
-
 
         public IActionResult Edit(int? id)
         {
@@ -88,6 +72,23 @@ namespace OrderLaptop.Controllers
             }
             return View(customer);
         }
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var client = new CustomerService.CustomerServiceClient(channel);
+            Customer customer = client.Get(new CustomerId() { Id = (int)id });
+            if (customer == null)
+            {
+                return NotFound();
+            }
+            return View(customer);
+        }
+
+
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {
