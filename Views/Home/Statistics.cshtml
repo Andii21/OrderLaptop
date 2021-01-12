@@ -4,11 +4,16 @@
     ViewData["Title"] = "Ordered Laptops Statistics";
 }
 <h2>Ordered Laptops Statistics</h2>
+<p> Numarul de laptopuri comandate pentru fiecare data. </p>
 <table>
     <tr>
         <th>
             Order Date
         </th>
+        <th>
+            
+        </th>
+        <th></th>
         <th>
             Ordered Laptops
         </th>
@@ -17,10 +22,10 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.OrderDate)
+                 @Html.DisplayFor(modelItem => item.OrderDate)
             </td>
-
-
+            
+            
             <td>
                 @item.LaptopCount
             </td>

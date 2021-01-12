@@ -1,13 +1,13 @@
-﻿@model PaginatedList<OrderLaptop.Models.Laptop>
+﻿@model PaginatedList<OrderLaptop.DeviceModel.Models.Laptop>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Laptops";
 }
 
-<h1>Index</h1>
+<h1>Laptops</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Add New Laptop</a>
 </p>
 <form asp-action="Index" method="get">
     <div class="form-actions no-color">
