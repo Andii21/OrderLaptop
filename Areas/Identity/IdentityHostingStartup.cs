@@ -20,6 +20,7 @@ namespace OrderLaptop.Areas.Identity
                         context.Configuration.GetConnectionString("IdentityContextConnection")));
 
                 services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                    .AddRoles<IdentityRole>()
                     .AddEntityFrameworkStores<IdentityContext>();
             });
         }

@@ -11,6 +11,7 @@ using OrderLaptop.DeviceModel.Data;
 using System.Net.Http;
 using System.Text;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OrderLaptop.Controllers
 {
@@ -58,6 +59,7 @@ namespace OrderLaptop.Controllers
             return NotFound();
         }
         // GET: Customers/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -65,6 +67,7 @@ namespace OrderLaptop.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Create([Bind("CustomerID,Name,Adress,BirthDate,PhoneNumber")] Customer customer)
         {
             if (!ModelState.IsValid) return View(customer);
@@ -119,6 +122,8 @@ namespace OrderLaptop.Controllers
             }
             return View(customer);
         }
+
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -138,6 +143,7 @@ namespace OrderLaptop.Controllers
         // POST: Customers/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete([Bind("CustomerID")] Customer customer)
         {
             try

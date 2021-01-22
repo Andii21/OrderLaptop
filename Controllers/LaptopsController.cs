@@ -93,6 +93,7 @@ namespace OrderLaptop.Controllers
         }
 
         // GET: Laptops/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -101,6 +102,7 @@ namespace OrderLaptop.Controllers
         // POST: Laptops/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+       [Authorize(Roles ="Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,Description,Price")] Laptop laptop)
@@ -123,8 +125,9 @@ namespace OrderLaptop.Controllers
             return View(laptop);
         }
 
-        
+
         // GET: Laptops/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -146,6 +149,7 @@ namespace OrderLaptop.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost,ActionName("Edit")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditPost(int? id)
         { 
             if (id == null)
@@ -175,6 +179,7 @@ namespace OrderLaptop.Controllers
         }
 
         // GET: Laptops/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
@@ -201,6 +206,7 @@ namespace OrderLaptop.Controllers
         // POST: Laptops/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var laptop = await _context.Laptops.FindAsync(id);

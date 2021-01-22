@@ -16,7 +16,7 @@ namespace OrderLaptop.Controllers
         private readonly GrpcChannel channel;
         public CustomersGrpcController()
         {
-            channel = GrpcChannel.ForAddress("https://localhost:5001");
+             channel = GrpcChannel.ForAddress("https://localhost:5001");
         }
         [HttpGet]
         public IActionResult Index()

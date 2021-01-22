@@ -30,7 +30,12 @@ namespace OrderLaptop
         {
          
             services.AddControllersWithViews();
+
             //services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<LibraryContext>();
+         /*   services.AddDefaultIdentity<IdentityUser>()
+                            .AddRoles<IdentityRole>()
+                            .AddEntityFrameworkStores<LibraryContext>();*/
+
             services.AddDbContext<LibraryContext>(options =>
                                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             

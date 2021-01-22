@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using OrderLaptop.Models.DeviceViewModel;
 using OrderLaptop.DeviceModel.Models;
 using OrderLaptop.DeviceModel.Data;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace OrderLaptop.Controllers
 {
@@ -71,6 +71,7 @@ namespace OrderLaptop.Controllers
         }
 
         // GET: Sites/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -81,6 +82,7 @@ namespace OrderLaptop.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("SiteID,SiteName,URL")] Site site)
         {
             if (ModelState.IsValid)
@@ -93,6 +95,7 @@ namespace OrderLaptop.Controllers
         }
 
         // GET: Sites/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -139,6 +142,7 @@ namespace OrderLaptop.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id, string[] selectedLaptops)
         {
             if (id == null)
@@ -211,8 +215,9 @@ namespace OrderLaptop.Controllers
         }
 
 
-    // GET: Sites/Delete/5
-    public async Task<IActionResult> Delete(int? id)
+        // GET: Sites/Delete/5
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -232,6 +237,7 @@ namespace OrderLaptop.Controllers
         // POST: Sites/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var site = await _context.Sites.FindAsync(id);
